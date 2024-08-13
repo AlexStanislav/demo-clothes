@@ -1,0 +1,12 @@
+@import './base.css';
+body{
+    margin: 0;  
+    padding: 0;
+    font-family: 'Playfair Display', serif;
+    color: var(--dark);
+    overflow-x: hidden;
+}
+
+.spacer {
+    height: 60px;
+}

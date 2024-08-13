@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    --dark: #002147;
+    --dark-shade: #2d63e6;
+    --accent: #E6B02D;
+    --light-shade: #ABA8C9;
+    --light: #EFEFEC;
+}
