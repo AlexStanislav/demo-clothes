@@ -38,7 +38,7 @@ function generateProducts() {
     }
     for (let i = 0; i < 80; i++) {
         let category = categories[Math.floor(Math.random() * 2)]
-        let price = Math.floor(Math.random() * 1000)
+        let price = Math.floor(Math.random() * 10) + 1
         let old_price = null
         if (Math.random() < 0.3) {
             old_price = parseInt(price + (price * (Math.random() * 0.2 + 0.1)), 10)
@@ -163,6 +163,14 @@ app.post('/contact', async (req, res) => {
         console.error(error)
         return res.status(500).json({ error: 'Failed to verify token' })
     }
+})
+
+app.get('/success', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'success.html'))
+})
+
+app.get('/cancel', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'cancel.html'))
 })
 
 app.listen(port, () => {
