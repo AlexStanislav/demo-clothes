@@ -29,6 +29,9 @@ import Button from 'primevue/button';
 import 'leaflet/dist/leaflet.css';
 import * as L from 'leaflet';
 import { onMounted, ref } from 'vue';
+import { useAppStore } from '@/stores/app';
+
+const appStore = useAppStore();
 
 import Turnstile from 'cfturnstile-vue3'
 
@@ -57,7 +60,7 @@ function tokenVerify(value) {
 }
 
 function sendMessage() {
-    fetch('http://localhost:8000/contact', {
+    fetch(`${appStore.baseURL}/contact`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

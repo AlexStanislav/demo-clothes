@@ -24,10 +24,10 @@
         </section>
         <section class="cart-footer" v-if="appStore.cart.length">
             <div class="cart-footer-info">
-                <div class="delivery-type" v-for="type in deliveryTypes" :key="type">
+                <!-- <div class="delivery-type" v-for="type in deliveryTypes" :key="type">
                     <label :for="type">{{ type }}</label>
                     <input type="radio" :id="type" :value="type" v-model="deliveryMethod">
-                </div>
+                </div> -->
                 <div class="cart-total"><span>Total</span> ${{ appStore.cartTotal }}</div>
 
                 <Button label="Checkout" style="border-radius: 0; margin-top: 10px; width: 100%;" severity="info" @click="checkout()"></Button>
@@ -92,7 +92,7 @@ function updateCartCount() {
 }
 
 function checkout() {
-    fetch('http://localhost:8000/checkout', {
+    fetch(`${appStore.baseURL}/checkout`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -108,14 +108,6 @@ function checkout() {
         console.log(err);
     })
 }
-
-watch(deliveryMethod, () => {
-    if(deliveryMethod.value === 'Home Delivery') {
-        appStore.cartTotal += 5;
-    } else {
-        appStore.cartTotal -= 5;
-    }
-})
 
 </script>
 <style scoped>
