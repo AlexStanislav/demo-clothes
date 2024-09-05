@@ -133,9 +133,17 @@ function sortProducts(event) {
     sortOrder.value = event.value;
     let sortedProducts = [];
     if (sortOrder.value === 'Ascending') {
-        sortedProducts = currentlyFiltered.value.sort((a, b) => a.price - b.price);
+        if(currentlyFiltered.value.length === 0) {
+            sortedProducts = appStore.products.sort((a, b) => a.price - b.price);
+        } else {
+            sortedProducts = currentlyFiltered.value.sort((a, b) => a.price - b.price);
+        }
     } else {
-        sortedProducts = currentlyFiltered.value.sort((a, b) => b.price - a.price);
+        if(currentlyFiltered.value.length === 0) {
+            sortedProducts = appStore.products.sort((a, b) => b.price - a.price);
+        } else {
+            sortedProducts = currentlyFiltered.value.sort((a, b) => b.price - a.price);
+        }
     }
 
     displayProducts.value = sortedProducts.slice(startIndex.value, endIndex.value);
