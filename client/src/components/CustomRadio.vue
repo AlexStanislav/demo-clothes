@@ -1,6 +1,6 @@
 <template>
     <label class="filter-radio">
-        <div>{{ filter.toUpperCase() }} ({{ amount }})</div>
+        <div>{{ filter.toUpperCase() }}</div>
         <input type="radio" :checked="checked" :value="filter" v-bind="{ ...$attrs }" :name="$attrs.name" @change="updateFilter">
         <span></span>
     </label>

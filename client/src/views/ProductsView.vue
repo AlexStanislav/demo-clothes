@@ -9,7 +9,6 @@
                 <ul>
                     <li v-for="category in categoriesFilters" :key="category">
                         <CustomRadio :filter="category" :name="'category'" :checked="category === filters.category"
-                            :amount="appStore.products.filter(product => product.category === category).length"
                             @updateFilter="applyFilters('category', category)" />
                     </li>
                 </ul>
@@ -27,7 +26,8 @@
                 </ul>
             </div>
             <div class="filter-wrapper">
-                <h3>BRANDS <i v-if="filters.brand !== ''" @click="clearFilter('brand')" class="pi pi-filter-slash"></i></h3>
+                <h3>BRANDS <i v-if="filters.brand !== ''" @click="clearFilter('brand')" class="pi pi-filter-slash"></i>
+                </h3>
                 <ul>
                     <li v-for="brand in brandsFilters" :key="brand">
                         <CustomRadio :filter="brand" :name="'brand'" :checked="brand === filters.brand"
@@ -43,8 +43,11 @@
                 <Select style="border-radius: 0;" v-model="sortOrder" :options="['Ascending', 'Descending']"
                     @change="sortProducts" />
             </header>
-            <div class="products-display">
+            <div class="products-display" v-if="displayProducts.length > 0">
                 <ProductCard v-for="product in displayProducts" :key="product.id" :product="product" />
+            </div>
+            <div class="no-products" v-else>
+                <h2>No products found</h2>
             </div>
             <Paginator :rows="6" :totalRecords="totalRecords" @page="onPageChange" :rowsPerPageOptions="[6, 12, 18]">
             </Paginator>
@@ -77,6 +80,7 @@ const filters = ref({
     collection: '',
     brand: ''
 });
+
 
 onMounted(async () => {
     if (appStore.products.length === 0) {
@@ -118,9 +122,11 @@ function applyFilters(filter, value) {
 function filterProducts(filter, value) {
     filters.value[filter] = value;
     const filteredProducts = appStore.products.filter((product) => {
+
         const categoryMatch = !filters.value.category || product.category === filters.value.category;
         const collectionMatch = !filters.value.collection || product.collection === filters.value.collection;
         const brandMatch = !filters.value.brand || product.brand === filters.value.brand;
+
         return categoryMatch && collectionMatch && brandMatch;
     });
 
@@ -133,15 +139,11 @@ function sortProducts(event) {
     sortOrder.value = event.value;
     let sortedProducts = [];
     if (sortOrder.value === 'Ascending') {
-        if(currentlyFiltered.value.length === 0) {
-            sortedProducts = appStore.products.sort((a, b) => a.price - b.price);
-        } else {
+        if (currentlyFiltered.value.length !== 0) {
             sortedProducts = currentlyFiltered.value.sort((a, b) => a.price - b.price);
         }
     } else {
-        if(currentlyFiltered.value.length === 0) {
-            sortedProducts = appStore.products.sort((a, b) => b.price - a.price);
-        } else {
+        if (currentlyFiltered.value.length !== 0) {
             sortedProducts = currentlyFiltered.value.sort((a, b) => b.price - a.price);
         }
     }
@@ -160,7 +162,6 @@ function onPageChange(event) {
     } else {
         displayProducts.value = currentlyFiltered.value.slice(startIndex.value, endIndex.value);
     }
-
 }
 
 </script>
@@ -209,6 +210,16 @@ h1 {
     gap: 20px;
 }
 
+.no-products {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
+    font-family: 'Montserrat', sans-serif;
+}
+
 .products-filter {
     width: 20%;
     height: 75vh;
@@ -235,19 +246,22 @@ h1 {
     padding: 0;
 }
 
-@media screen and (max-width: 414px), screen and (max-width: 896px)  {
+@media screen and (max-width: 414px),
+screen and (max-width: 896px) {
     h1 {
         width: fit-content;
     }
-    .products{
+
+    .products {
         flex-flow: column;
     }
 
-    .products-filter{
+    .products-filter {
         width: 100%;
         height: fit-content;
     }
-    .products-wrapper{
+
+    .products-wrapper {
         width: 100%;
     }
 }
