@@ -1,17 +1,36 @@
 {
-  "name": "server",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "client",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test:unit": "vitest",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
+    "format": "prettier --write src/"
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "dotenv": "^16.4.5",
-    "express": "^4.19.2",
-    "nodemailer": "^6.9.14",
-    "stripe": "^16.2.0"
+    "@primevue/themes": "^4.0.3",
+    "cfturnstile-vue3": "^1.0.0",
+    "leaflet": "^1.9.4",
+    "pinia": "^2.1.7",
+    "primeicons": "^7.0.0",
+    "primevue": "^4.0.3",
+    "vue": "^3.4.29",
+    "vue-router": "^4.3.3"
+  },
+  "devDependencies": {
+    "@rushstack/eslint-patch": "^1.8.0",
+    "@vitejs/plugin-vue": "^5.0.5",
+    "@vue/eslint-config-prettier": "^9.0.0",
+    "@vue/test-utils": "^2.4.6",
+    "eslint": "^8.57.0",
+    "eslint-plugin-vue": "^9.23.0",
+    "jsdom": "^24.1.0",
+    "prettier": "^3.2.5",
+    "vite": "^5.3.1",
+    "vitest": "^1.6.0"
   }
 }
