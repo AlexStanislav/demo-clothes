@@ -68,7 +68,6 @@
 <script setup>
 import { onBeforeMount, ref } from 'vue';
 import { useAppStore } from './stores/app';
-import { useRouter } from 'vue-router';
 
 import Toast from 'primevue/toast';
 import InputText from 'primevue/inputtext';
@@ -79,7 +78,6 @@ import MobileNav from '@/components/MobileNav.vue';
 
 const appStore = useAppStore();
 const categories = ref([]);
-const router = useRouter();
 
 onBeforeMount(async () => {
     if(appStore.products.length === 0) await appStore.fetchProducts();

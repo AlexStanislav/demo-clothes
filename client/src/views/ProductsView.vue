@@ -138,6 +138,11 @@ function filterProducts(filter, value) {
 function sortProducts(event) {
     sortOrder.value = event.value;
     let sortedProducts = [];
+
+    if(currentlyFiltered.value.length === 0) {
+        currentlyFiltered.value = filterProducts('category', filters.value.category);
+    }
+    
     if (sortOrder.value === 'Ascending') {
         if (currentlyFiltered.value.length !== 0) {
             sortedProducts = currentlyFiltered.value.sort((a, b) => a.price - b.price);
