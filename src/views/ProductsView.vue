@@ -9,7 +9,8 @@
                 <ul>
                     <li v-for="category in categoriesFilters" :key="category">
                         <CustomRadio :filter="category" :name="'category'" :checked="category === filters.category"
-                            @updateFilter="applyFilters('category', category)" />
+                            @updateFilter="applyFilters('category', category)"
+                            :amount="appStore.products.filter(product => product.category === category).length" />
                     </li>
                 </ul>
             </div>
@@ -139,10 +140,10 @@ function sortProducts(event) {
     sortOrder.value = event.value;
     let sortedProducts = [];
 
-    if(currentlyFiltered.value.length === 0) {
+    if (currentlyFiltered.value.length === 0) {
         currentlyFiltered.value = filterProducts('category', filters.value.category);
     }
-    
+
     if (sortOrder.value === 'Ascending') {
         if (currentlyFiltered.value.length !== 0) {
             sortedProducts = currentlyFiltered.value.sort((a, b) => a.price - b.price);

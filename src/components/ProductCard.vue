@@ -1,7 +1,7 @@
 <template>
     <section class="product-wrapper">
         <i class="pi pi-trash" v-if="isInWishlist" @click="removeWishlist(product)"></i>
-        <i class="pi pi-heart-fill" @click="addWishlist(product)"></i>
+        <i class="pi pi-heart-fill" v-if="!isInWishlist" @click="addWishlist(product)"></i>
         <i class="pi pi-shopping-cart" @click="addToCart(product)"></i>
         <img :src="product.image">
         <div class="product-info">
@@ -78,9 +78,6 @@ function addToCart(product) {
     transition: all 0.1s ease-in-out;
 }
 
-.pi-trash{
-    top: 40px;
-}
 
 .pi-shopping-cart {
     position: absolute;
